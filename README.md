@@ -3,7 +3,7 @@ Simple proof of concept using JsonRpc and REST
 
 ## Framework: Symfony 4 Standard Edition
 
-### NOTE: this is a sample of architecture to make a startup of JsonRpc And RESt, Entities are missing, do your own
+### NOTE: this is a sample project of architecture to make a startup of JsonRpc And RESt, Entities are missing, do your own entities
 
 
 ### Base installed from theses commands
