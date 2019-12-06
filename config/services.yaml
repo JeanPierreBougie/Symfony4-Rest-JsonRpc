@@ -1,0 +1,109 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: 'en'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Allows optimizing the container by removing unused services; this also means
+                            # fetching services directly from the container via $container->get() won't work.
+                            # The best practice is to be explicit about your dependencies anyway.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{Entity,Migrations,Tests}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    job.bo.jsonrpc:
+        class: App\BO\JobBO
+        public: true
+        tags:
+          - {name: wa72_jsonrpc.exposable}
+
+    candidate.bo.jsonrpc:
+        class: App\BO\CandidateBO
+        public: true
+        tags:
+          - {name: wa72_jsonrpc.exposable}
+
+    job.v1.bo.jsonrpc:
+        class: App\BO\JobBO
+        public: true
+        calls:
+          - [setVersion,['v1']]
+        tags:
+          - {name: wa72_jsonrpc.exposable}
+
+    candidate.v1.bo.jsonrpc:
+        class: App\BO\CandidateBO
+        public: true
+        calls:
+          - [setVersion,['v1']]
+        tags:
+          - {name: wa72_jsonrpc.exposable}
+
+    employer.bo.jsonrpc:
+        class: App\BO\EmployerBO
+        public: true
+        tags:
+          - { name: wa72_jsonrpc.exposable }
+
+    employer.v1.bo.jsonrpc:
+        class: App\BO\EmployerBO
+        public: true
+        calls:
+          - [setVersion, ['v1']]
+        tags:
+          - { name: wa72_jsonrpc.exposable }
+
+    application.v1.bo.jsonrpc:
+            class: App\BO\ApplicationBO
+            public: true
+            calls:
+              - [setVersion, ['v1']]
+            tags:
+              - { name: wa72_jsonrpc.exposable }
+
+    Pdfconverter\Converter:
+        autowire: true
+        public: true
+        calls:
+          - [setHost,['%pdfconverter.host%','%pdfconverter.port%']]
+#           - [setProxy,['%pdfconverter.proxy.host%','%pdfconverter.proxy.port%','%pdfconverter.proxy.user%','%pdfconverter.proxy.pass%']]
+
+    Antivirus\Antivirus:
+        autowire: true
+        public: true
+        calls:
+          - [setHost,['%antivirus.host%','%antivirus.port%']]
+
+    App\Helper\CvHelper:
+        autowire: true
+        public: true
+        calls:
+          - [setBasePath,['%cv.basePath%']]
+          - [setTempPath,['%cv.tempPath%']]
+
+    App\Helper\LogoHelper:
+        autowire: true
+        public: true
+        calls:
+          - [setBaseImageUrl, ['%images.uri%']]
+
+    my.listener:
+        class: Doctrine\DBAL\Event\Listeners\OracleSessionInit
+        tags:
+          - { name: doctrine.event_listener, event: postConnect }

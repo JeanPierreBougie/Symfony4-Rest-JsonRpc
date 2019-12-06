@@ -3,9 +3,12 @@ Simple proof of concept using JsonRpc and REST
 
 ## Framework: Symfony 4 Standard Edition
 
+### NOTE: this is a sample of architecture to make a startup of JsonRpc And RESt, Entities are missing, do your own
+
+
 ### Base installed from theses commands
 
-    composer create-project symfony/skeleton jobboom-core "4.0.*" -s dev
+    composer create-project symfony/skeleton core-services "4.0.*" -s dev
     composer require annotations
     composer require --dev profiler
     composer require twig

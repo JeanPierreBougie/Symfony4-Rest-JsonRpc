@@ -1,0 +1,17 @@
+default:
+  autoload:
+    '': "%paths.base%/../features/bootstrap"
+  suites:
+    default:
+      contexts:
+        - FeatureContext
+    job:
+      paths:
+        - "%paths.base%/../features/job"
+      contexts:
+        - JobContext
+    candidate:
+      paths:
+        - "%paths.base%/../features/candidate"
+      contexts:
+        - CandidateContext

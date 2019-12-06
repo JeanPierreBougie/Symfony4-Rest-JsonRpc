@@ -1,0 +1,15 @@
+#index:
+#    path: /
+#    defaults: { _controller: 'App\Controller\DefaultController::index' }
+
+jsonrpc_api:
+    #resource: "@Wa72JsonRpcBundle/Resources/config/routing.yml"
+#    resource: "@ApplicationServiceBundle/Resources/config/routing-rpc.yml"
+#    host:     "{domain}"
+#    prefix:   /jsonrpc
+    path: /jsonrpc
+    defaults: { _controller: App\Controller\JsonRpcController:executeAction }
+#    requirements:
+#        domain: %host.rc.project.rest.alias%
+
+
