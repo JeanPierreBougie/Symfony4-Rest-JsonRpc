@@ -17,7 +17,8 @@ Simple proof of concept using JsonRpc and REST
     composer require --dev behat/behat
     composer require --dev behat/mink
     composer require --dev behat/mink-goutte-driver
-    
+
+# JsonRpc
 Single Request:
 
     {"jsonrpc": "2.0", "method": "job.bo:fetchJobInfo", "params": [42], "id": 1}
