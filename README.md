@@ -18,7 +18,7 @@ Simple proof of concept using JsonRpc and REST
     composer require --dev behat/mink
     composer require --dev behat/mink-goutte-driver
 
-# JsonRpc
+### JsonRpc
 Single Request:
 
     {"jsonrpc": "2.0", "method": "job.bo:fetchJobInfo", "params": [42], "id": 1}
@@ -39,7 +39,7 @@ Search param as jsonObject
     {"jsonrpc":"2.0","method":"job.v1.bo:fetchJobList","params":[{"id":["000037","000038"]}],"id":2}
     {"jsonrpc":"2.0","method":"job.v1.bo:fetchJobList","params":[{"region":["87","57"],"limit":"100"}],"id":2}    
     
-### REST Call supported
+### REST
 
 Sample `GET` URI:
     /v1/job/?id[]=000047&id[]=000048&limit=1&offset=1
